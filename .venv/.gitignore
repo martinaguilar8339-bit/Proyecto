@@ -1,0 +1,168 @@
+venv/
+.venv/
+__pycache__
+-*.pyc
+*.pyo
+*.pyd
+*.db
+# 📚 API de Gestión de Cursos
+
+## 📖 Descripción
+
+Esta API RESTful permite gestionar cursos mediante operaciones CRUD (Crear, Leer, Actualizar y Eliminar).
+Está desarrollada con FastAPI y utiliza una base de datos SQLite para la persistencia de datos.
+
+---
+
+## ⚙️ Tecnologías utilizadas
+
+* Python 3
+* FastAPI
+* SQLAlchemy
+* SQLite
+* Uvicorn
+
+---
+
+## 🚀 Instalación
+
+1. Clonar el repositorio:
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd <NOMBRE_DEL_PROYECTO>
+```
+
+2. Crear entorno virtual:
+
+```bash
+python -m venv .venv
+```
+
+3. Activar entorno virtual:
+
+Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+4. Instalar dependencias:
+
+```bash
+pip install fastapi uvicorn sqlalchemy
+```
+
+---
+
+## ▶️ Ejecución del proyecto
+
+```bash
+uvicorn main:app --reload
+```
+
+Accede a la API en:
+
+```
+http://127.0.0.1:8000
+```
+
+Documentación interactiva:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+---
+
+## 📌 Endpoints
+
+### 🔹 Obtener todos los cursos
+
+```
+GET /cursos
+```
+
+---
+
+### 🔹 Obtener un curso por ID
+
+```
+GET /cursos/{curso_id}
+```
+
+---
+
+### 🔹 Crear un curso
+
+```
+POST /cursos
+```
+
+Ejemplo de JSON:
+
+```json
+{
+  "nombre_del_curso": "Español",
+  "id_del_profesor": 12345,
+  "descripcion": "Curso de Español",
+  "fecha_de_inicio": "2026-08-11",
+  "fecha_de_fin": "2026-12-11"
+}
+```
+
+---
+
+### 🔹 Actualizar un curso
+
+```
+PUT /cursos/{curso_id}
+```
+
+Ejemplo:
+
+```json
+{
+  "nombre_del_curso": "Español avanzado",
+  "id_del_profesor": 999,
+  "descripcion": "Curso actualizado",
+  "fecha_de_inicio": "2026-08-15",
+  "fecha_de_fin": "2026-12-20"
+}
+```
+
+---
+
+### 🔹 Eliminar un curso
+
+```
+DELETE /cursos/{curso_id}
+```
+
+---
+
+## 📂 Estructura del proyecto
+
+```
+/proyecto
+│── main.py
+│── database.py
+│── models.py
+│── dtos.py
+│── cursos/
+│     └── crud.py
+```
+
+---
+
+## 🧠 Notas
+
+* El ID del curso es generado automáticamente por la base de datos.
+* Las fechas deben estar en formato: `YYYY-MM-DD`.
+* La API utiliza validación automática con Pydantic.
+
+---
+
+## 👨‍💻 Autor
+
+Proyecto desarrollado como parte de una práctica de Backend - API RESTful.

@@ -1,23 +1,37 @@
 import datetime
 from fastapi import FastAPI, Depends, HTTPException
-from sqlalchemy.orm import Session   # ✅ CORREGIDO
+from sqlalchemy.orm import Session
 import models, dtos
 import cursos.crud as crud
 from database import SessionLocal, engine
 
+# Crea las tablas en la base de datos al iniciar
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(title="API de Gestión de Cursos - Octavo Semestre")
 
+# Dependencia para obtener la sesión de la base de datos
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
+# --- RUTA RAÍZ (Agregada para Health Check de Render) ---
+@app.get("/")
+def read_root():
+    return {
+        "status": "online",
+        "message": "Bienvenido a la API de Cursos",
+        "docs": "/docs"
+    }
+
+# --- RUTAS DE CURSOS ---
+
 @app.get("/cursos/{curso_id}", response_model=dtos.CursoResponse)
 def get_curso(curso_id: int, db: Session = Depends(get_db)):
-    db_curso = crud.find_curso(db =db , curso_id=curso_id)
+    db_curso = crud.find_curso(db=db, curso_id=curso_id)
     if db_curso is None:
         raise HTTPException(status_code=404, detail="Curso no encontrado")
     return db_curso
